@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/transitional.dtd">
+<html lang='en' class="theme1">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap"
+		rel="stylesheet">
+	<title>Free Your Fridge</title>
+</head>
+
+
+<style>
+	.theme1 {
+		/* font: italic 300 15px 'Lora', Georgia, 'Times New Roman', serif; */
+		font-family: "Alegreya Sans", serif;
+		--textcolor: whitesmoke;
+		--backgroundc: black;
+		--accent: #a9a9a9;
+		--accent1: #99c8c8;
+	}
+
+	.head {
+		color: var(--textcolor);
+		font-size: 50px;
+		letter-spacing: 2px;
+		font-weight: 900;
+		font-style: italic;
+
+	}
+
+	html,
+	body {
+		overflow: hidden;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+		line-height: 20px;
+		background-color: var(--backgroundc);
+		transition: color 0.5s, font-size 0.5;
+		z-index: 998;
+		display: flex;
+	}
+
+	#bodydiv {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		padding-left: 25%;
+		z-index: 998;
+	}
+
+	#pageTitle {
+		font-size: 60px;
+		line-height: normal;
+		margin-bottom: 20px;
+	}
+
+
+
+	.recipe {
+		font-family: "Alegreya", serif;
+		background-color: rgb(244, 241, 139);
+		width: 400px;
+		height: 65%;
+		justify-content: center;
+		margin: 10% auto;
+		margin-top: 160px;
+		margin-left: 40px;
+		border-radius: 10px;
+		padding: 20px;
+		overflow-y: scroll;
+		/*change to none later*/
+		display: none;
+	}
+
+
+	.container {
+		display: flex;
+		flex-direction: row;
+		width: 80%;
+	}
+
+	.recipe .line {
+		border-bottom: 1px solid black;
+		margin: 5px 0;
+	}
+
+	#recipe.show {
+		display: block !important;
+	}
+
+	label {
+		color: var(--textcolor);
+	}
+
+	#miss {
+		font-size: 14px;
+		margin-left: 30px;
+		border-bottom: 1px solid black;
+		font-style: normal;
+	}
+
+	#recipetitle {
+		font-size: 16px;
+		font-weight: 600;
+		font-family: "Alegreya Sans", sans-serif;
+	}
+
+	input[type="text"] {
+		font-family: "Alegreya Sans", sans-serif;
+		font-weight: 300;
+		font-style: normal;
+		font-size: 15px;
+		border: none;
+		border-bottom: 1px solid var(--accent);
+		background-color: var(--backgroundc);
+		color: var(--accent1);
+		outline: none;
+		padding: 10px;
+		width: 100%;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+
+	input[type="submit"] {
+		font-family: "Alegreya", serif;
+		background-color: var(--accent1);
+		font-size: 16px;
+		color: var(--backgroundc);
+		padding: 10px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	input[type="submit"]:hover {
+		background-color: var(--accent);
+	}
+
+	#bottomLink {
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: 16px;
+		text-decoration: underline;
+		color: var(--accent);
+		cursor: pointer;
+		z-index: 999;
+		/* Ensure the link is above other elements */
+	}
+</style>
+
+<body>
+
+	<a href="https://www.linkedin.com/in/eshanair/" id="bottomLink">Made by Esha</a>
+
+	<div class="container">
+		<div id="bodydiv">
+			<h1 style="color: var(--accent);" id="pageTitle">FREE YOUR FRIDGE</h1>
+			<p
+				style="color: var(--accent1); font-style: normal;font-family: Alegreya, serif;font-size: 16px; margin-right: 20px;line-height: normal;">
+				Need to clear out
+				your fridge? Enter
+				the
+				ingredients you
+				want to use up for recipe ideas!</p>
+			<form id="myform" onsubmit="sendForm(); return false;">
+				<label for="fingredient">Ingredient 1: </label>
+				<br>
+				<input id="fingredient1" type="text">
+				<br><br>
+				<label for="fingredient">Ingredient 2: </label>
+				<br>
+				<input id="fingredient2" type="text">
+				<br><br>
+				<input type="submit" value="Find Recipes!">
+			</form>
+		</div>
+		<div id="menu" class="recipe">
+			<h2 class="line">MENU</h2>
+			<div id="recipe">
+			</div>
+		</div>
+	</div>
+
+	<script src="../server.js"></script>
+
+	<script>
+
+
+		function sendForm() {
+			var recipeDiv = document.getElementById('recipe');
+			//recipeDiv.style.display = 'block';
+			var menuDiv = document.getElementById('menu');
+			menuDiv.style.display = 'block'; // Show the menu div
+
+			recipeDiv.innerHTML = "";
+
+			var ingredient1 = document.getElementById('fingredient1').value;
+			var ingredient2 = document.getElementById('fingredient2').value;
+			var apiUrl = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' + encodeURIComponent(ingredient1 + ',' + ingredient2) +
+				'&apiKey={{API_KEY}}'; // Use {{API_KEY}} placeholder
+
+			fetch(apiUrl)
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+					// Display the recipe
+					if (data.length <= 0) {
+						recipeDiv.innerHTML += "<br><p>" + "Enter a valid ingredient..." + "</p>";
+						return;
+					}
+					data.slice(0, 10).forEach(recipe => {
+						recipeDiv.innerHTML += "<p id='recipetitle'> - " + recipe.title + "</p>";
+						var n = recipe.missedIngredients.length;
+						if (n > 0) {
+							recipeDiv.innerHTML += "<p>" + "You also need: " + "</p>";
+							recipe.missedIngredients.slice(0, n).forEach(missed => {
+								recipeDiv.innerHTML += "<p id='miss'>" + missed.name + "</p>";
+							});
+						}
+						else {
+							recipeDiv.innerHTML += "<p>" + "Enter a valid ingredient... " + "</p>";
+						}
+						recipeDiv.innerHTML += "<br>"
+					});
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		}
+
+	</script>
+
+</body>
+
+
+</html>
