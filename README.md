@@ -4,6 +4,6 @@
 Improvements and TO DO:
 - optimize for mobile
 - implement Next.js
-- increase font size, or and search for more appealing font pairs
+- increase font size, and search for more appealing font pairs
 - provide links to recipes
 - include measurements of both used and missing ingredients
