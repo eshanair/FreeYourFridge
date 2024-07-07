@@ -1,5 +1,6 @@
 # FreeYourFridge
-Free Your Fridge is a web application designed to help you clear out your fridge by suggesting recipes based on the ingredients you have. Simply enter the ingredients you want to use up, and get a list of recipe ideas tailored to your available ingredients.
+Free Your Fridge is a web application designed to help you clear out your fridge by suggesting recipes based on the ingredients you have. 
+Simply enter the ingredients you want to use up, and get a list of recipe ideas tailored to your available ingredients.
 - Enter up to two ingredients, and get a list of recipes that you can make with them.
 - Recipes are displayed dynamically based on user input.
 - The application features a clean and modern user interface with custom fonts and responsive design.
